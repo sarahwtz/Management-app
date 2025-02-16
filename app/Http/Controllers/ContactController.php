@@ -54,7 +54,7 @@ class ContactController extends Controller
         $request->validate([
             'name'=>'required|min:3|max:40',
             'telefone'=> 'required',
-            'email' => 'required',
+            'email' => 'email',
             'mensagem' => 'required |max:2000'
         ]);
         //SiteContato::create($request->all());
