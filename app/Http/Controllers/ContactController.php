@@ -55,8 +55,10 @@ class ContactController extends Controller
             'name'=>'required|min:3|max:40',
             'telefone'=> 'required',
             'email' => 'email',
+            'motivo_contatos_id' => 'required',
             'mensagem' => 'required |max:2000'
         ]);
-        //SiteContato::create($request->all());
+        SiteContato::create($request->all());
+        return redirect()->route('site.index');
         }
 }
