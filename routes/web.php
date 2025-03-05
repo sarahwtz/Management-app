@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 */
 
-Route::get('/','PrincipalController@principal')->name('site.index');
+Route::get('/','PrincipalController@principal')->name('site.index')->middleware('log.acessso');
 Route::get('/sobre-nos','SobreNosController@sobreNos')->name('site.sobrenos');
 Route::get('/contato', 'ContactController@contato')->name('site.contato');
 Route::post('/contato', 'ContactController@salvar')->name('site.contato');
