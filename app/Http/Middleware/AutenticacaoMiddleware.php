@@ -13,7 +13,7 @@ class AutenticacaoMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $metodo_autenticacao)
     {
         //verifica se o usuario possui acesso à rota:
        if(true) {
