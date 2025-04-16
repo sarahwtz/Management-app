@@ -16,9 +16,9 @@ class FornecedorController extends Controller
 
         $fornecedores = Fornecedor::where('nome', 'like', '%'.$request->input('nome').'%')
         ->where('site', 'like', '%'.$request->input('site').'%')
-        ->where('UF', 'like', '%'.$request->input('UF').'%')
+        ->where('uf', 'like', '%'.$request->input('uf').'%')
         ->where('email', 'like', '%'.$request->input('email').'%')
-        ->paginate(2);
+        ->paginate(3);
 
         return view('app.fornecedor.listar',['fornecedores'=> $fornecedores, 'request' => $request->all()]);
 
@@ -38,7 +38,7 @@ class FornecedorController extends Controller
             $regras= [
                 'nome' => 'required| min:3|max:40',
                 'site' => 'required',
-                'UF' => 'required|min:2|max:2',
+                'uf' => 'required|min:2|max:2',
                 'email' => 'email'
 
             ];
@@ -47,8 +47,8 @@ class FornecedorController extends Controller
                 'required' => ' O campo :attribute deve ser preenchido',
                 'nome.min' => 'O campo nome deve ter no minimo 3 caracteres',
                 'nome.max' => 'O campo nome deve ter no maximo 3 caracteres',
-                'UF.min' => 'O campo UF deve ter no minimo 2 caracteres',
-                'UF.max' => 'O campo UF deve ter no maximo 2 caracteres',
+                'uf.min' => 'O campo UF deve ter no minimo 2 caracteres',
+                'uf.max' => 'O campo UF deve ter no maximo 2 caracteres',
                 'email.email' => 'O campo e-mail nao foi preenchido corretamente',
             ];
 
@@ -69,7 +69,7 @@ class FornecedorController extends Controller
              $regras = [
                 'nome' => 'required|min:3|max:40',
                 'site' => 'required',
-                'UF' => 'required|min:2|max:2',
+                'uf' => 'required|min:2|max:2',
                 'email' => 'email'
             ];
         
@@ -77,8 +77,8 @@ class FornecedorController extends Controller
                 'required' => 'O campo :attribute deve ser preenchido',
                 'nome.min' => 'O campo nome deve ter no mínimo 3 caracteres',
                 'nome.max' => 'O campo nome deve ter no máximo 40 caracteres',
-                'UF.min' => 'O campo UF deve ter no mínimo 2 caracteres',
-                'UF.max' => 'O campo UF deve ter no máximo 2 caracteres',
+                'uf.min' => 'O campo UF deve ter no mínimo 2 caracteres',
+                'uf.max' => 'O campo UF deve ter no máximo 2 caracteres',
                 'email.email' => 'O campo e-mail não foi preenchido corretamente',
             ];
         
