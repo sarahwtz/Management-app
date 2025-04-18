@@ -26,7 +26,7 @@
                      <tr>
                         <th>Nome</th>
                         <th>Site</th>
-                        <th>uf</th>
+                        <th></th>
                         <th>E-Mail</th>
                         <th></th>
                         <th></th>
@@ -41,7 +41,7 @@
                      <td>{{ $fornecedor->site }}</td>
                      <td>{{ $fornecedor->uf }}</td>
                      <td>{{ $fornecedor->email }}</td>
-                     <td>Excluir</td>
+                     <td><a href= "{{ route('app.fornecedor.excluir', $fornecedor->id) }}">Excluir</a></td>
                      <td><a href= "{{ route('app.fornecedor.editar', $fornecedor->id) }}">Editar</a></td>
                      </tr>
 
