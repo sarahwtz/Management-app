@@ -26,7 +26,7 @@
                      <tr>
                         <th>Nome</th>
                         <th>Site</th>
-                        <th>UF</th>
+                        <th>uf</th>
                         <th>E-Mail</th>
                         <th></th>
                         <th></th>
@@ -39,7 +39,7 @@
                      <tr>
                      <td>{{ $fornecedor->nome }}</td>
                      <td>{{ $fornecedor->site }}</td>
-                     <td>{{ $fornecedor->UF }}</td>
+                     <td>{{ $fornecedor->uf }}</td>
                      <td>{{ $fornecedor->email }}</td>
                      <td>Excluir</td>
                      <td><a href= "{{ route('app.fornecedor.editar', $fornecedor->id) }}">Editar</a></td>

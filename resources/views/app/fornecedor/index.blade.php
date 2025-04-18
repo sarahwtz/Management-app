@@ -25,7 +25,7 @@
                 @csrf
                     <input type="text" name="nome"  placeholder="Nome" class="borda-preta">
                     <input type="text" name="site" placeholder ="Site" class="borda-preta">
-                    <input type="text" name="UF" placeholder= "UF" class="borda-preta">
+                    <input type="text" name="uf" placeholder= "UF" class="borda-preta">
                     <input type="text" name="email" placeholder="E-mail" class="borda-preta">
                     <button type="submit" class="borda-preta">Pesquisar</button>
                  <form>   
