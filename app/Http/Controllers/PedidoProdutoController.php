@@ -41,14 +41,16 @@ class PedidoProdutoController extends Controller
 
         $regras = [
             'produto_id' =>'exists:produtos,id',
-            'quantidade' =>'required'
+            'quantidade' => 'required|integer|min:1'
 
 
         ];
 
         $feedback = [
             'produto_id.exists' => ' O produto informado nao existe',
-            'required' => ' O campo :attribute deve possuir um valor válido'
+            'quantidade.required' => 'A quantidade é obrigatória',
+            'quantidade.integer' => 'A quantidade deve ser um número inteiro',
+             'quantidade.min' => 'A quantidade deve ser no mínimo 1',
         ];
 
         $request->validate($regras, $feedback);
@@ -104,7 +106,7 @@ class PedidoProdutoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  PedidoProduto $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -118,7 +120,9 @@ class PedidoProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pedido $pedido, Produto $produto)
+    //public function destroy(Pedido $pedido, Produto $produto)
+    public function destroy(PedidoProduto $pedidoProduto, $pedido_id)
+    
     {
         /*
        print_r($pedido->getAttributes());
@@ -126,7 +130,7 @@ class PedidoProdutoController extends Controller
        print_r($produto->getAttributes());
        */
 
-       echo $pedido->id. ' - '.$produto->id;
+      // echo $pedido->id. ' - '.$produto->id;
 
 
        //convencional
@@ -138,10 +142,12 @@ class PedidoProdutoController extends Controller
        */
 
        //detach (delete pelo relacionamento-belongs to many)
-       $pedido->produtos()->detach($produto->id);
+      // $pedido->produtos()->detach($produto->id);
        // ou $produto->produtos()->detach($produto->id);
 
-       return redirect()->route('pedido-produto.create', ['pedido' => $pedido->id]);
+       $pedidoProduto->delete();
+
+       return redirect()->route('pedido-produto.create', ['pedido' => $pedido_id]);
 
     }
 }
