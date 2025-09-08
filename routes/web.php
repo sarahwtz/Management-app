@@ -26,6 +26,13 @@ Route::post('/contato', 'ContactController@salvar')->name('site.contato');
 Route::get('/login/{erro?}', 'LoginController@index')->name('site.login');
 Route::post('/login', 'LoginController@autenticar')->name('site.login');
 
+//Route::get('/cadastro', 'CadastroController@index')->name('site.cadastro');
+//Route::post('/cadastro', 'CadastroController@')->name('site.cadastro');
+
+Route::resource('cadastro', 'CadastroController');
+
+
+
 
 
 

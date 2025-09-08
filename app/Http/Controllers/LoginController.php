@@ -4,76 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $erro = '';
-        if ($request->get('erro')==1);{
-            $erro = 'Usuário e ou senha nao existe';
+
+        if ($request->get('erro') == 1) {
+            $erro = 'Usuário e/ou senha não existe';
         }
 
-
-        if ($request->get('erro')==2);{
+        if ($request->get('erro') == 2) {
             $erro = 'Necessário realizar login para ter acesso à página.';
         }
 
         return view('site.login', ['titulo' => 'Login', 'erro' => $erro]);
     }
 
-    public function autenticar(Request $request) {
-        //regras de validacao
+    public function autenticar(Request $request)
+    {
         $regras = [
-            'usuario'=> 'email',
+            'usuario' => 'required|email',
             'senha' => 'required',
         ];
 
-        //as mensagens de feedback de validacao
         $feedback = [
-            'usuario.email' => 'O campo usuário (e-mail) é obrigatório',
-            'senha.required' => 'O campo senha é obrigatório.'
-
+            'usuario.required' => 'O campo usuário (e-mail) é obrigatório',
+            'usuario.email' => 'O e-mail informado não é válido',
+            'senha.required' => 'O campo senha é obrigatório.',
         ];
-        //se nao passar pelo validate
+
         $request->validate($regras, $feedback);
 
-        //recuperamos os parametros do formulario
         $email = $request->get('usuario');
         $password = $request->get('senha');
 
-        //echo "Usuário: $email | Senha: $password";
-        //echo'<br>';
+        $usuario = User::where('email', $email)->first();
 
-        //iniciar o Model User
-        $user = new User();
-
-        $usuario = $user->where('email', $email)->where('password', $password)->get()->first(); 
-        
-        //comparacao nao precisa de =
-
- if (isset($usuario->name)) {
-    //echo 'Usuário existe';
-
-    session_start();
-    $_SESSION['nome'] = $usuario->name;
-    $_SESSION['email'] = $usuario->email;
-
-    return redirect()->route('app.home');
-
-    //dd($_SESSION);
-
-
- } else {
-    return redirect()->route('site.login', ['erro' => 1]);
- }
-
-        
-
+        if ($usuario && Hash::check($password, $usuario->password)) {
+            Auth::login($usuario);
+            return redirect()->route('app.home');
+        } else {
+            return redirect()->route('site.login', ['erro' => 1]);
+        }
     }
 
-    public function sair(){
-        session_destroy();
+    public function sair()
+    {
+        Auth::logout();
         return redirect()->route('site.index');
-
     }
 }
