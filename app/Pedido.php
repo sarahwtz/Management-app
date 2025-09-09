@@ -24,7 +24,11 @@ class Pedido extends Model
          return $this->belongsTo(Cliente::class);
      }
 
-
+     public function itens()
+{
+    return $this->belongsToMany(Item::class, 'pedidos_produtos', 'pedido_id', 'produto_id')
+                ->withPivot('id', 'quantidade', 'created_at', 'updated_at');
+}
 
    
 }
