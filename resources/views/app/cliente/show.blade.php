@@ -11,7 +11,7 @@
 
     <div class="menu">
         <ul>
-                <li><a href="{{ route('pedido.create') }}">Novo</a></li>
+                <li><a href="{{ route('cliente.create') }}">Novo</a></li>
                 <li><a href="{{ url()->previous() }}">Voltar</a></li>
         </ul>
     </div>
