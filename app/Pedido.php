@@ -18,6 +18,11 @@ class Pedido extends Model
         4 - Representa o nome da FK da tabela mapeada pelo model utilizado no relacionamento que estamos implementando.
         */
      }
+
+     public function cliente()
+     {
+         return $this->belongsTo(Cliente::class);
+     }
    
 }
            
