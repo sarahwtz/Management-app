@@ -14,7 +14,7 @@
     <div class="menu">
     <ul>
     <li><a href="{{ route('cliente.create') }}">Novo</a></li>
-    <li><a href="">Consulta</a></li>
+    <li><a href="{{ route('cliente.consulta') }}">Consulta</a></li>
 
     </ul>
         </div>  
@@ -37,7 +37,9 @@
                      <tr>
                         <td>{{ $cliente->nome }}</td>
                         <td><a href= "{{ route('cliente.show',['cliente' => $cliente->id]) }}">Visualizar</a></td>
-                     <td>
+                    
+                     <td><a href= "{{ route('cliente.edit', ['cliente' => $cliente->id]) }}">Editar</a></td>
+                      <td>
                         <form id= "form_{{ $cliente->id }}"method="post" action="{{ route('cliente.destroy', ['cliente' => $cliente->id]) }}">
                         @method('DELETE')
                         @csrf
@@ -45,7 +47,6 @@
                         <a href= "#" onclick="document.getElementById('form_{{ $cliente->id }}').submit()">Excluir</a>
                          </form>
                      </td>
-                     <td><a href= "{{ route('cliente.edit', ['cliente' => $cliente->id]) }}">Editar</a></td>
                      </tr>
 
                      @endforeach

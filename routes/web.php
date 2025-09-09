@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\LogAcessoMiddleware;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CadastroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,10 @@ Route::get('/', function () {
 });
 */
 
+
+//cadastro
+Route::resource('cadastro', CadastroController::class);
+
 Route::get('/','PrincipalController@principal')->name('site.index')->middleware('log.acesso');
 Route::get('/sobre-nos','SobreNosController@sobreNos')->name('site.sobrenos');
 Route::get('/contato', 'ContactController@contato')->name('site.contato');
@@ -26,14 +32,10 @@ Route::post('/contato', 'ContactController@salvar')->name('site.contato');
 Route::get('/login/{erro?}', 'LoginController@index')->name('site.login');
 Route::post('/login', 'LoginController@autenticar')->name('site.login');
 
-//Route::get('/cadastro', 'CadastroController@index')->name('site.cadastro');
-//Route::post('/cadastro', 'CadastroController@')->name('site.cadastro');
 
-Route::resource('cadastro', 'CadastroController');
-
-
-
-
+//pedidos consulta
+Route::get('pedido/consulta', 'PedidoController@consulta')->name('pedido.consulta');
+Route::get('pedido/listar', 'PedidoController@listar')->name('pedido.listar');
 
 
 Route::middleware('autenticacao:padrao')->prefix('/app')->group(function(){
@@ -41,6 +43,8 @@ Route::middleware('autenticacao:padrao')->prefix('/app')->group(function(){
 Route::get('/home', 'HomeController@index')->name('app.home');
 
 Route::get('/sair', 'LoginController@sair')->name('app.sair');
+
+
 
 
 //Route::get('/cliente','ClienteController@index')->name('app.cliente');
@@ -52,10 +56,31 @@ Route::get('/fornecedor/adicionar','FornecedorController@adicionar')->name('app.
 Route::post('/fornecedor/adicionar','FornecedorController@adicionar')->name('app.fornecedor.adicionar');
 Route::get('/fornecedor/editar/{id}/{msg?}', 'FornecedorController@editar')->name('app.fornecedor.editar');
 Route::get('/fornecedor/excluir/{id}', 'FornecedorController@excluir')->name('app.fornecedor.excluir');
+Route::get('cliente/{cliente}/from-pedido', [ClienteController::class, 'showFromPedido'])
+    ->name('cliente.show_from_pedido');
+
+    //Clientes (para Cliente consulta)
+
+    // Formulário de consulta de clientes
+Route::get('/cliente/consulta', 'ClienteController@consulta')->name('cliente.consulta');
+
+// devolve a lista de  clientes com base nos filtros enviados acima
+Route::get('/cliente/listar', 'ClienteController@listar')->name('cliente.listar');
 
 
-//Produtos
+
+
+
+// Consulta de produtos
+Route::get('/produto/consulta', 'ProdutoController@consulta')->name('produto.consulta');
+
+// Listar produtos
+Route::get('/produto/listar', 'ProdutoController@listar')->name('produto.listar');
+Route::post('/produto/listar', 'ProdutoController@listar')->name('produto.listar');
+// Produtos
 Route::resource('produto', 'ProdutoController');
+
+
 
 //Produtos detalhes
 Route::resource('produto-detalhe', 'ProdutoDetalheController');
@@ -67,6 +92,8 @@ Route::get('pedido-produto/create/{pedido}', 'PedidoProdutoController@create')->
 Route::post('pedido-produto/store/{pedido}', 'PedidoProdutoController@store')->name('pedido-produto.store');
 //Route::delete('pedido-produto.destroy/{pedido}/{produto}','PedidoProdutoController@destroy')->name('pedido-produto.destroy');
 Route::delete('pedido-produto.destroy/{pedidoProduto}/{pedido_id}','PedidoProdutoController@destroy')->name('pedido-produto.destroy');
+
+
 
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cliente;
+use App\Pedido;
 
 class ClienteController extends Controller
 {
@@ -54,6 +55,8 @@ class ClienteController extends Controller
 
         return redirect()->route('cliente.index');
 
+       
+
 
     }
 
@@ -63,10 +66,19 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cliente $cliente)
     {
-        //
+        $cliente->load('pedidos.produtos');
+        return view('app.cliente.show', ['cliente' => $cliente]);
+    
     }
+
+
+    public function showFromPedido($id)
+{
+    $cliente = Cliente::with(['pedidos.produtos.fornecedor'])->find($id);
+    return view('app.cliente.show_from_pedido', ['cliente' => $cliente]);
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -74,9 +86,10 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cliente $cliente)
     {
-        //
+        
+        return view('app.cliente.edit', ['cliente' =>$cliente]);
     }
 
     /**
@@ -86,9 +99,12 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cliente $cliente)
     {
-        //
+       $cliente->update($request->all());
+
+     return redirect()->route('cliente.index');
+     
     }
 
     /**
@@ -97,8 +113,38 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cliente $cliente)
     {
-        //
+        $cliente->delete();
+        return redirect()->route('cliente.index');
     }
+
+
+    public function consulta()
+    {
+    return view('app.cliente.consulta'); 
+    }
+
+
+
+    public function listar(Request $request)
+    {
+    
+    $request->validate([ 'nome' => 'required',],
+      ['nome.required' => 'Este campo deve ser preenchido' ]);
+
+    $query = Cliente::query();
+
+    if ($request->filled('nome')) {
+        $query->where('nome', 'like', '%' . $request->nome . '%');
+    }
+
+    $clientes = $query->paginate(10);
+
+    return view('app.cliente.listar', [
+        'clientes' => $clientes,
+        'request' => $request->all()
+    ]);
+    }
+
 }
