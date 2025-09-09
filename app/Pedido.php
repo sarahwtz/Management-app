@@ -23,6 +23,9 @@ class Pedido extends Model
      {
          return $this->belongsTo(Cliente::class);
      }
+
+
+
    
 }
            

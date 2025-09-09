@@ -13,8 +13,9 @@
 
     <div class="menu">
     <ul>
+  
+    <li><a href="{{ route('pedido.consulta') }}">Consulta</a></li>
     <li><a href="{{ route('pedido.index') }}">Voltar</a></li>
-    <li><a href="">Consulta</a></li>
 
     </ul>
         </div>  
