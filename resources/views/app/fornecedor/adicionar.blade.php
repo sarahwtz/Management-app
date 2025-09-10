@@ -13,15 +13,16 @@
 
     <div class="menu">
     <ul>
-    <li><a href="{{ route('app.fornecedor.adicionar') }}">Novo</a></li>
+    
     <li><a href="{{ route('app.fornecedor') }}">Consulta</a></li>
+    <li><a href="{{ route('app.fornecedor.listar') }}">Voltar</a></li>
 
     </ul>
         </div>  
 
             <div class="informacao-pagina">
 
-             {{-- Só mostra a mensagem de sucesso se NÃO houver erros --}}
+             
     @if (!$errors->any() && isset($msg))
         <div style="color: green; font-weight: bold;">
             {{ $msg }}
@@ -39,14 +40,17 @@
                     <input type="text" name="site" value="{{ $fornecedor->site ?? old('site') }}" placeholder ="Site" class="borda-preta">
                     {{  $errors->has('site') ? $errors->first('site') : '' }}
 
-                    <input type="text" name="uf" value="{{ $fornecedor->UF ?? old('UF') }}" placeholder= "UF" class="borda-preta">
+                    <input type="text" name="uf" value="{{ $fornecedor->uf ?? old('uf') }}" placeholder= "UF" class="borda-preta">
                     {{  $errors->has('uf') ? $errors->first('uf') : '' }}
 
                     <input type="text" name="email" value="{{ $fornecedor->email ?? old('email') }}"placeholder="E-mail" class="borda-preta">
                     {{  $errors->has('email') ? $errors->first('email') : '' }}
 
 
-                    <button type="submit" class="borda-preta">Cadastrar</button>
+                   <button type="submit" class="borda-preta">
+                   {{ isset($fornecedor) ? 'Atualizar' : 'Cadastrar' }}
+                   </button>
+
                  <form>   
 
             </div>
