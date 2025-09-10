@@ -13,5 +13,5 @@
     {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
 
                     
-    <button type="submit" class="borda-preta">Cadastrar</button>
+    <button type="submit" class="borda-preta">Enviar</button>
 <form> 
