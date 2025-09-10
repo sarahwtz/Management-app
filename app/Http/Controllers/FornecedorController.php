@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Fornecedor;
+use App\Produto;
 
 class FornecedorController extends Controller
 {
@@ -24,6 +25,21 @@ class FornecedorController extends Controller
 
        
         
+    }
+
+    public function consulta(Request $request){
+
+        $produtos = Produto::with(['fornecedor'])
+        ->where('nome', 'like', '%'.$request->input('nome').'%')
+        ->where('descricao', 'like', '%'.$request->input('descricao').'%')
+        ->where('peso', 'like', '%'.$request->input('peso').'%')
+        ->where('fornecedor_id', 'like', '%'.$request->input('fornecedor_id').'%')
+        ->paginate(5);
+
+        return view('app.produto.consulta', [
+            'produtos' => $produtos,
+            'request' => $request->all()
+        ]);
     }
 
 
@@ -115,7 +131,7 @@ class FornecedorController extends Controller
        Fornecedor::find($id)->delete();
        //Fornecedor::find($id)->forceDelete();
 
-       return redirect()->route('app.fornecedor');
+       return redirect()->route('app.fornecedor.listar');
     }
 
 }

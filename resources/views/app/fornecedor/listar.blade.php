@@ -8,7 +8,7 @@
 <div class="conteudo-pagina">
 
     <div class="titulo-pagina-2">
-        <p>Fornecedor - Listar</p>
+        <p>Listagem de Fornecedores</p>
     </div> 
 
     <div class="menu">
@@ -41,8 +41,9 @@
                      <td>{{ $fornecedor->site }}</td>
                      <td>{{ $fornecedor->uf }}</td>
                      <td>{{ $fornecedor->email }}</td>
+                      <td><a href= "{{ route('app.fornecedor.editar', $fornecedor->id) }}">Editar</a></td>
                      <td><a href= "{{ route('app.fornecedor.excluir', $fornecedor->id) }}">Excluir</a></td>
-                     <td><a href= "{{ route('app.fornecedor.editar', $fornecedor->id) }}">Editar</a></td>
+                    
                 </tr>
                  <tr>
                      <td colspan="6">
