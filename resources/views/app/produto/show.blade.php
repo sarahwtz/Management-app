@@ -13,8 +13,9 @@
 
     <div class="menu">
     <ul>
-    <li><a href="{{ route('produto.index') }}">Voltar</a></li>
-    <li><a href="">Consulta</a></li>
+   {{--   <li><a href="{{ route('produto.index') }}">Voltar</a></li> --}}
+      <li><a href="{{ route('produto.consulta') }}">Consulta</a></li>
+      <li><a href="{{ route('produto.index', ['page' => $page ?? 1]) }}">Voltar</a></li>
 
     </ul>
         </div>  
@@ -37,12 +38,14 @@
                      </tr>
                       <tr>
                             <td>Peso:</td>
-                            <td>{{ $produto->peso }} kg</td>
+                            <td>{{ $produto->peso }} {{ $produto->unidade->unidade }}</td>
                      </tr>
+                     {{--
                       <tr>
                             <td>Unidade de Medida:</td>
-                            <td>{{ $produto->unidade_id }}</td>
+                            <td>{{ $produto->unidade->descricao }}</td>
                      </tr>
+                     --}}
                 </table>  
 
             </div>
