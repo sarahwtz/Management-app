@@ -21,6 +21,19 @@ class Item extends Model
         return $this->belongsToMany('App\Pedido', 'pedidos_produtos','produto_id', 'pedido_id');
     }
 
+    public function unidade()
+{
+    return $this->belongsTo(Unidade::class, 'unidade_id');
+}
+
+
+
+
+public function getPesoFormatadoAttribute()
+{
+    return $this->peso == floor($this->peso) ? (int)$this->peso : $this->peso;
+}
+
 }
 
 
