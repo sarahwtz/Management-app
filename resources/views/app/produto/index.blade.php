@@ -14,7 +14,7 @@
     <div class="menu">
     <ul>
     <li><a href="{{ route('produto.create') }}">Novo</a></li>
-    <li><a href="">Consulta</a></li>
+    <li><a href="{{ route('produto.consulta') }}">Consulta</a></li>
 
     </ul>
         </div>  
